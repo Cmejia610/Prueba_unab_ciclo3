@@ -1,0 +1,126 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  var nombre_local;
+  var nombre_visitante;
+  $(function () {
+    $("#cargar").click(function () {
+      $.get('http://192.168.1.100:8080/ciclo3/partido', function (data) {
+
+        $("#cuerpo").html("");
+        for (var i = 0; i < data.length; i++) {
+          var url = 'http://192.168.1.100:8080/ciclo3/equipo/' + data[i].local;
+          var url2 = 'http://192.168.1.100:8080/ciclo3/equipo/' + data[i].visitante;
+
+          $.get(url, function (eqlocal) {
+            nombre_local = eqlocal.nombre;
+          })
+          $.get(url2, function (eqvisita) {
+            nombre_visitante = eqvisita.nombre;
+          })
+
+          var tr = `<tr>
+            <td>`+ data[i].fecha + `</td>
+          <td>`+ nombre_local + `</td>
+          <td>`+ data[i].goles_local + `</td>
+          <td>`+ nombre_visitante + `</td>
+          <td>`+ data[i].goles_visitante + `</td>
+        </tr>`;
+          $("#cuerpo").append(tr)
+
+        }//while     
+
+      })
+    })
+  })
+</script>
+<header>
+  <style>
+    .ver-partidos {
+      line-height: 20px;
+      width: 15%;
+      margin-top: 15px;
+      background-color: #9C640C;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 4px 4px 4px 4px rgba(128, 128, 128, 128);
+      font-family: Arial, Helvetica, sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .marg-form {
+      padding: 50px 40px;
+      font-size: 16px;
+      overflow: hidden;
+      width: 40%;
+      margin: auto;
+    }
+
+    h2 {
+      border-bottom: #9C640C 2px solid;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    p {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    table {
+      width: 100%;
+
+    }
+
+    table.colapsado {
+      border-collapse: collapse;
+    }
+
+    tbody.cuerpo {
+      padding: 10px;
+      background-color: #EAECEE;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    thead {
+      background-color: #9C640C;
+      color: white;
+    }
+
+    th,
+    td {
+      width: 25%;
+      text-align: left;
+      vertical-align: top;
+      border-collapse: collapse;
+      padding: 0.3em;
+      caption-side: bottom;
+      border-left: 1px solid #0c0c0c;
+      border-bottom: 1px solid #0c0c0c;
+      border-top: 1px solid #0c0c0c;
+      border-right: 1px solid #0c0c0c;
+    }
+  </style>
+</header>
+
+<body class="marg-form">
+
+    <H2>PARTIDOS</H2>
+    <input class="ver-partidos" type="submit" id="cargar" name="cargar" value="CARGAR"> <br>
+    <table class="colapsado">
+      <thead>
+        <th style="text-align: center;vertical-align: inherit;">Fecha</th>
+        <th style="text-align: center;vertical-align: inherit;">Local</th>
+        <th style="text-align: center;vertical-align: inherit;">Goles Local</th>
+        <th style="text-align: center;vertical-align: inherit;">Visitante</th>
+        <th style="text-align: center;vertical-align: inherit;">Goles Visitante</th>
+      </thead>
+      <tbody id="cuerpo">
+
+      </tbody>
+    </table>
+    <p align="center"><a href="index.html">VOLVER AL MENU PRINCIPAL</a></p>
+    
+</body>

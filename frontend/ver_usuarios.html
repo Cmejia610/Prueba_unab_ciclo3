@@ -1,0 +1,107 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(function () {
+    $("#cargar").click(function () {
+      $.get('http://192.168.1.100:8080/ciclo3/usuario', function (data) {
+
+        $("#cuerpo").html("");
+        for (var i = 0; i < data.length; i++) {
+          var tr = `<tr>
+            <td>`+ data[i].id + `</td>
+          <td>`+ data[i].nombre + `</td>
+          <td>`+ data[i].correo + `</td>
+          <td>`+ data[i].nombreusuario + `</td>
+        </tr>`;
+          $("#cuerpo").append(tr)
+        }
+      })
+    })
+  })
+</script>
+<header>
+  <style>
+    .ver-usuario {
+      line-height: 20px;
+      width: 15%;
+      margin-top: 15px;
+      background-color: #9C640C;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 4px 4px 4px 4px rgba(128, 128, 128, 128);
+      font-family: Arial, Helvetica, sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .marg-form {
+      padding: 50px 40px;
+      font-size: 16px;
+      overflow: hidden;
+      width: 60%;
+      margin: auto;
+    }
+
+    h2 {
+      border-bottom: #9C640C 2px solid;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    p {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    table {
+      width: 100%;
+
+    }
+
+    table.colapsado {
+      border-collapse: collapse;
+    }
+
+    tbody.cuerpo {
+      padding: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+    thead{
+      background-color: #9C640C;
+      color: white;
+    }
+    th,
+    td {
+      width: 25%;
+      text-align: left;
+      vertical-align: top;
+      border-collapse: collapse;
+      padding: 0.3em;
+      caption-side: bottom;
+      border-left: 1px solid #0c0c0c;
+      border-bottom: 1px solid #0c0c0c;
+      border-top: 1px solid #0c0c0c;
+      border-right: 1px solid #0c0c0c;
+    }
+  </style>
+</header>
+
+<body class="marg-form">
+  
+    <H2>USUARIOS REGISTRADOS </H2>
+    <input class="ver-usuario" type="submit" id="cargar" name="cargar" value="CARGAR"> <br>
+    <table class="colapsado">
+      <thead>
+        <th style="text-align: center;vertical-align: inherit;">Id</th>
+        <th style="text-align: center;vertical-align: inherit;">Nombre</th>
+        <th style="text-align: center;vertical-align: inherit;">Correo</th>
+        <th style="text-align: center;vertical-align: inherit;">Nombre Usuario</th>
+      </thead>
+      <tbody class="cuerpo" id="cuerpo">
+        
+      </tbody>
+    </table>
+    <p align="center"><a href="index.html">VOLVER AL MENU PRINCIPAL</a></p>
+  
+</body>

@@ -1,0 +1,80 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+    $("#guardar").on("click", function(e){
+        e.preventDefault();
+        var nombre=$("#nombre").val();
+        var correo=$("#correo").val();
+        var nombreusuario=$("#nombreusuario").val();
+        var clave=$("#clave").val();
+                   
+        fetch("http://127.0.0.1:8080/ciclo3/usuario", {
+        method: "POST",
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({nombre, correo, nombreusuario, clave})
+        }).then(response => response.json()).then(()=>alert("Guardado"))
+       
+    });
+});
+</script>
+<header>
+  <style>
+     .button-enviar {
+            line-height: 50px;
+            width: 20%;
+            margin-top: 15px;
+            background-color: #9C640C;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 4px 4px 4px 4px rgba(128, 128, 128, 128);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .marg-form {
+            padding: 50px 40px;
+            font-size: 16px;
+            overflow: hidden;
+            width: 60%;
+            margin: auto;
+            border: 2px solid #9C640C;
+        }
+
+        .nombre {
+            width: 80%;
+            padding: .375rem .75rem;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h3{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h2{
+            border-bottom: #9C640C 2px solid;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        p{
+            font-family: Arial, Helvetica, sans-serif;  
+        }
+</style>   
+</header>
+<body>
+    <form class="marg-form" name="formulario" id="formulario">
+      <H2>REGISTRAR USUARIO</H2>
+      <p><b>Ingrese su nombre</b></p>
+    <input class="nombre" type="text" name="nombre" id="nombre" placeholder="Nombre" style="margin-bottom: 5px;">
+    <p><b>Ingrese su correo electronico</b></p>
+    <input class="nombre" type="email" name="correo" id="correo" placeholder="Email" style="margin-bottom: 5px;"pattern="[0-9a-zAZÑñ._@-]{10,60}" maxlength="60">
+    <p><b>Ingrese el nombre de usuario</b></p>
+    <input class="nombre" type="text"  name="nombreusuario" id="nombreusuario" placeholder="Nombre de usuario" style="margin-bottom: 5px;">
+    <p><b>Ingrese su clave</b></p>
+    <input class="nombre" type="password" name="clave" id="clave" placeholder="clave" style="margin-bottom: 5px;"pattern="[a-zA-Z0-9._ -]{6,20}" maxlength="20">  <br>
+    <input class="button-enviar" type="submit" id="guardar" Value="Guardar" name="guardar">
+    </form>
+    <p align=center><a href="index.html">VOLVER AL MENU PRINCIPAL</a></p>
+</body>

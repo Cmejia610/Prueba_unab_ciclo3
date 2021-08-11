@@ -1,0 +1,85 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+     $(document).ready(function (){
+     $.get('http://127.0.0.1:8080/ciclo3/equipo', function(datosequipos){
+      $("#local").html("");
+        for(var i=0; i<datosequipos.length; i++){
+          var opcion = `
+            <option value="`+datosequipos[i].id+`"
+          >`+datosequipos[i].nombre+`</option>
+          </tr>`;
+          $("#local").append(opcion)
+          $("#visitante").append(opcion)
+        }
+      })
+    })
+
+  $(function(){
+    $("#guardar").on("click", function(e){
+        e.preventDefault();
+        var fecha=$("#fecha").val();
+        var local=$("#local").val();
+        var visitante=$("#visitante").val();
+        var goles_local=$("#goles_local").val();
+        var goles_visitante=$("#goles_visitante").val();
+        var usuario=1;  
+                   
+        fetch("http://127.0.0.1:8080/ciclo3/partido", {
+          method: "POST",
+          mode: 'cors',
+          cache: 'no-cache',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({fecha,goles_local,goles_visitante, local, visitante, usuario})
+        }).then(response => response.json()).then(()=>alert("Partido Registrado con Exito!!"))
+    });
+  });
+</script>
+<header>
+   <style>
+     .button-enviar {
+            line-height: 50px;
+            width: 20%;
+            margin-top: 15px;
+            background-color: #9C640C;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 4px 4px 4px 4px rgba(128, 128, 128, 128);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .marg-form {
+            padding: 50px 40px;
+            font-size: 16px;
+            overflow: hidden;
+            width: 60%;
+            margin: auto;
+            border: 2px solid #9C640C;
+        }
+        h2{
+            border-bottom: #9C640C 2px solid;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        p{
+            font-family: Arial, Helvetica, sans-serif;  
+        }
+        td{
+            font-family: Arial, Helvetica, sans-serif;  
+        }
+   </style>     
+</header>
+<body>
+    <form class="marg-form" name="formulario" id="formulario">
+      <h2>REGISTRAR PARTIDO</h2>
+      <table align=center>
+      <tr><td>Fecha: </td><td><input type="date" name=fecha id="fecha"></td></tr>
+      <tr><td>Local:</td><td><select name="local" id="local"></select></td>
+      <td>Goles Local:</td><td><input type="number" name="goles_local" id="goles_local"></td></tr>
+      <tr><td>Visitante:</td><td> <select name="visitante" id="visitante"></select></td>
+      <td>Goles Visitante:</td><td><input type="number" name="goles_visitante" id="goles_visitante"></td></tr>
+      </table><p align=center><input class="button-enviar" type="submit" id="guardar" name="guardar" value="Registrar Partido"></p>
+    </form>
+    <p align=center><a href="index.html">VOLVER AL MENU PRINCIPAL</a></p>
+</body>
